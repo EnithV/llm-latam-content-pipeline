@@ -269,7 +269,19 @@ NRW (%) = (Water Produced - Water Billed) / Water Produced × 100
             'regulation': random.choice(self.latam_contexts['regulations']),
             'infrastructure_type': random.choice(['water treatment plants', 'bridges', 'roads', 'aqueducts']),
             'project_type': random.choice(['rehabilitation', 'new construction', 'expansion']),
-            'community_type': random.choice(['indigenous communities', 'urban areas', 'rural municipalities'])
+            'community_type': random.choice(['indigenous communities', 'urban areas', 'rural municipalities']),
+            'climate_zone': random.choice(['tropical', 'temperate', 'arid', 'mountain']),
+            'climate': random.choice(['humid', 'dry', 'variable']),
+            'parameter': random.choice(['flow rate', 'pressure', 'quality']),
+            'population': random.choice(['5000', '10000', '50000']),
+            'operation': random.choice(['maintenance', 'monitoring', 'optimization']),
+            'problem': random.choice(['leaks', 'contamination', 'inefficiency']),
+            'system_type': random.choice(['distribution', 'treatment', 'collection']),
+            'standard': random.choice(['WHO guidelines', 'local standards']),
+            'challenge': random.choice(['funding', 'technical capacity', 'community engagement']),
+            'stakeholder_group': random.choice(['local communities', 'government agencies', 'contractors']),
+            'cultural_element': random.choice(['traditional practices', 'community participation', 'local knowledge']),
+            'topic': random.choice(['infrastructure', 'environment', 'development'])
         }
         
         # Generate based on templates with realistic responses
