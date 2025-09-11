@@ -1,0 +1,52 @@
+{
+  "sample_training_data": [
+    {
+      "content_id": "a1b2c3d4e5f6",
+      "prompt": "¿Cuáles son los requisitos normativos para el diseño de acueductos rurales en Colombia?",
+      "response": "Los requisitos normativos para acueductos rurales en Colombia se establecen en el RAS 2000 (Reglamento Técnico del Sector de Agua Potable y Saneamiento Básico) y incluyen: 1) Diseño hidráulico según población proyectada y dotación per cápita (120-150 L/hab/día), 2) Cumplimiento de parámetros de calidad según Resolución 2115/2007, 3) Sistemas de tratamiento apropiados para fuente hídrica, 4) Diseño antisísmico según NSR-10, 5) Gestión social y ambiental con comunidades.",
+      "category": "engineering_infrastructure",
+      "language": "es",
+      "region": "Colombia",
+      "quality_score": 0.92,
+      "word_count": 87,
+      "technical_level": "advanced",
+      "cultural_context": "high",
+      "validation_status": "approved",
+      "bias_checked": true
+    },
+    {
+      "content_id": "f6e5d4c3b2a1",
+      "prompt": "How do you ensure cultural sensitivity when implementing water infrastructure projects in indigenous communities across LATAM?",
+      "response": "Cultural sensitivity in water infrastructure for indigenous communities requires: 1) Prior consultation following ILO Convention 169, 2) Recognition of traditional water management practices, 3) Bilingual communication and culturally appropriate technology, 4) Community ownership models and local capacity building, 5) Integration of traditional ecological knowledge with technical design, 6) Respect for sacred water sources and cultural protocols, 7) Gender-inclusive participation ensuring women's voices in water governance.",
+      "category": "cultural_context",
+      "language": "en",
+      "region": "LATAM",
+      "quality_score": 0.95,
+      "word_count": 76,
+      "technical_level": "intermediate",
+      "cultural_context": "very_high",
+      "validation_status": "approved",
+      "bias_checked": true
+    }
+  ],
+  "quality_metrics": {
+    "total_samples_generated": 200,
+    "high_quality_samples": 184,
+    "quality_score_average": 0.89,
+    "spanish_content_percentage": 55,
+    "latam_content_percentage": 78,
+    "bias_checked_percentage": 100,
+    "cultural_sensitivity_score": 0.91
+  },
+  "bias_detection_example": {
+    "detected_issues": [
+      "Technical elitism: Usage of 'obviously' and 'clearly' - Replaced with more inclusive language",
+      "Regional bias: Reference to 'developed countries' - Reframed as 'countries with established infrastructure'"
+    ],
+    "mitigation_actions": [
+      "Implemented inclusive technical language",
+      "Added cultural context for LATAM-specific challenges",
+      "Ensured gender-neutral pronouns throughout content"
+    ]
+  }
+}
