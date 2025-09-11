@@ -248,8 +248,8 @@ NRW (%) = (Water Produced - Water Billed) / Water Produced × 100
         templates = {
             'engineering_infrastructure': [
                 "Explain the regulatory requirements for {infrastructure_type} in {country}",
-                "What are the key technical considerations for {project_type} in {climate_zone}?",
-                "How to ensure compliance with {regulation} for {infrastructure_element}?"
+                "What are the key technical considerations for {project_type} in {climate}?",
+                "How to ensure compliance with {regulation} for {infrastructure_type}?"
             ],
             'water_management': [
                 "Calculate the optimal {parameter} for a water system serving {population} people",
@@ -281,7 +281,8 @@ NRW (%) = (Water Produced - Water Billed) / Water Produced × 100
             'challenge': random.choice(['funding', 'technical capacity', 'community engagement']),
             'stakeholder_group': random.choice(['local communities', 'government agencies', 'contractors']),
             'cultural_element': random.choice(['traditional practices', 'community participation', 'local knowledge']),
-            'topic': random.choice(['infrastructure', 'environment', 'development'])
+            'topic': random.choice(['infrastructure', 'environment', 'development']),
+            'infrastructure_element': random.choice(['pipelines', 'pumps', 'treatment systems', 'storage tanks'])
         }
         
         # Generate based on templates with realistic responses
