@@ -27,6 +27,20 @@
       "cultural_context": "very_high",
       "validation_status": "approved",
       "bias_checked": true
+    },
+    {
+      "content_id": "b7c8d9e0f1a2",
+      "prompt": "¿Qué criterios técnicos se deben verificar en la rehabilitación de un acueducto rural en Boyacá?",
+      "response": "La rehabilitación debe cubrir diagnóstico de captación, estado de redes y tanques, adecuación de tratamiento y desinfección, capacitación a operadores comunitarios, y cumplimiento de la Resolución 2115/2007 con registros de laboratorio.",
+      "category": "water_management",
+      "language": "es",
+      "region": "Colombia",
+      "quality_score": 0.94,
+      "word_count": 42,
+      "technical_level": "advanced",
+      "cultural_context": "high",
+      "validation_status": "approved",
+      "bias_checked": true
     }
   ],
   "quality_metrics": {

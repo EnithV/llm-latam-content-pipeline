@@ -10,10 +10,13 @@ import numpy as np
 import json
 import re
 from datetime import datetime
+from pathlib import Path
 from typing import List, Dict, Tuple, Optional
 import hashlib
 from collections import Counter
 import random
+
+_BASE_DIR = Path(__file__).resolve().parent
 
 class LLMContentPipeline:
     """
@@ -140,6 +143,112 @@ NRW (%) = (Water Produced - Water Billed) / Water Produced × 100
                 }
             ]
             pairs.extend(infrastructure_prompts)
+
+        elif category == 'water_management':
+            water_prompts = [
+                {
+                    "prompt": "¿Qué criterios técnicos se deben verificar en la rehabilitación de un acueducto rural en Boyacá?",
+                    "response": """La rehabilitación de acueductos rurales en Boyacá debe priorizar continuidad del servicio, calidad del agua y sostenibilidad operativa. El análisis técnico inicial define prioridades de inversión:
+
+**1. Diagnóstico de la fuente y captación:**
+- Caudal disponible en época seca y lluviosa
+- Protección sanitaria del área de captación
+- Riesgos de contaminación difusa (ganadería, actividades agrícolas)
+
+**2. Red de conducción y almacenamiento:**
+- Estado estructural de tuberías, válvulas y tanques
+- Pérdidas por fugas y presiones insuficientes en sectores críticos
+- Accesibilidad para mantenimiento en zonas de difícil acceso
+
+**3. Tratamiento y desinfección:**
+- Adecuación del sistema al caudal y número de usuarios (RAS 2000)
+- Verificación de cloro residual en puntos terminales de la red
+- Procedimientos de limpieza y desinfección de tanques
+
+**4. Gestión comunitaria:**
+- Capacitación a operadores locales y juntas de acueducto
+- Plan de mantenimiento con costos realistas para la comunidad
+- Mecanismos de cobro y reinversión en operación
+
+**5. Cumplimiento normativo:**
+- Monitoreo según Resolución 2115/2007
+- Registros de laboratorio y plan de contingencia ante turbidez o fallas""",
+                    "metadata": {
+                        "category": "water_management",
+                        "language": "es",
+                        "region": "Colombia",
+                        "technical_level": "advanced",
+                        "bias_check": "passed",
+                        "cultural_context": "high"
+                    }
+                },
+                {
+                    "prompt": "How should a water treatment plant define alert thresholds for pH, turbidity, and chlorine residual?",
+                    "response": """Operational alert thresholds should combine regulatory limits, process stability, and operator response time:
+
+**Regulatory baseline (Colombia, Resolución 2115/2007):**
+- pH: 6.5–9.0 (operational target often 6.8–8.2 for process control)
+- Turbidity: ≤2 NTU at plant outlet (lower targets improve disinfection efficiency)
+- Chlorine residual: 0.3–2.0 mg/L in distribution (minimum for protection, maximum for taste/DBPs)
+
+**Recommended alert tiers:**
+1. **Normal** — all parameters within target band; routine logging
+2. **Warning** — value approaches limit (e.g., turbidity 1.5–2.0 NTU, chlorine near minimum); increase sampling frequency
+3. **Critical** — outside legal limit or rapid trend change; trigger corrective action and supervisor notification
+
+**Implementation practices:**
+- Set warning bands before legal limits to allow preventive action
+- Use rolling averages to avoid false alarms from single readings
+- Document escalation steps in standard operating procedures
+- Review thresholds quarterly based on historical variability and seasonal demand""",
+                    "metadata": {
+                        "category": "water_management",
+                        "language": "en",
+                        "region": "Colombia",
+                        "technical_level": "intermediate",
+                        "bias_check": "passed",
+                        "cultural_context": "high"
+                    }
+                }
+            ]
+            pairs.extend(water_prompts)
+
+        elif category == 'regulatory_frameworks':
+            regulatory_prompts = [
+                {
+                    "prompt": "¿Cuáles son los parámetros mínimos de calidad del agua para consumo humano según la Resolución 2115 de 2007 en Colombia?",
+                    "response": """La Resolución 2115 de 2007 define límites máximos permisibles para agua de consumo humano en Colombia. Parámetros frecuentemente auditados:
+
+**Fisicoquímicos:**
+- pH: 6.5–9.0
+- Turbiedad: ≤5 NTU (en planta de tratamiento el objetivo operativo suele ser menor)
+- Color aparente: ≤15 unidades Pt-Co
+- Cloro residual libre: 0.3–2.0 mg/L en red de distribución
+
+**Microbiológicos:**
+- Coliformes totales: ausencia en 100 mL
+- E. coli: ausencia en 100 mL
+
+**Uso en control operativo:**
+- Los operadores deben registrar mediciones con frecuencia definida en el plan de saneamiento
+- Desviaciones requieren acción correctiva documentada
+- Laboratorios deben cumplir trazabilidad y cadenas de custodia
+
+**Contexto de cumplimiento:**
+- Aplica a sistemas urbanos y rurales según responsable del servicio
+- Se complementa con RAS 2000 para diseño y operación de acueductos
+- Las autoridades sanitarias verifican cumplimiento mediante inspección y muestreo""",
+                    "metadata": {
+                        "category": "regulatory_frameworks",
+                        "language": "es",
+                        "region": "Colombia",
+                        "technical_level": "advanced",
+                        "bias_check": "passed",
+                        "cultural_context": "high"
+                    }
+                }
+            ]
+            pairs.extend(regulatory_prompts)
         
         # Environmental compliance prompts
         elif category == 'environmental_compliance':
@@ -515,10 +624,11 @@ NRW (%) = (Water Produced - Water Billed) / Water Produced × 100
         
         return pd.DataFrame(dataset)
     
-    def load_rubric(self, path: str = "eval_rubric.json") -> Optional[Dict]:
+    def load_rubric(self, path: Optional[str] = None) -> Optional[Dict]:
         """Load evaluation rubric definition if present."""
+        rubric_path = Path(path) if path else _BASE_DIR / "eval_rubric.json"
         try:
-            with open(path, encoding="utf-8") as f:
+            with open(rubric_path, encoding="utf-8") as f:
                 return json.load(f)
         except FileNotFoundError:
             return None

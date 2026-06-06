@@ -21,6 +21,7 @@ git clone https://github.com/EnithV/llm-latam-content-pipeline.git
 cd llm-latam-content-pipeline
 pip install -r requirements.txt
 python content_pipeline.py
+python -m unittest discover -s tests -v
 ```
 
 **Outputs** (gitignored locally):
@@ -66,13 +67,20 @@ Built to show skills relevant to **AI evaluation** and **training data QA**:
 
 Grounded in civil engineering practice (water treatment, rural aqueducts, compliance in Colombia).
 
+## Tests
+
+```bash
+python -m unittest discover -s tests -v
+```
+
+Covers bias detection, quality scoring, language/culture checks, synthetic generation, and rubric reporting.
+
 ## Possible next steps
 
 - [ ] Human review queue (approve / reject / flag)  
 - [ ] Export rubric scores per dimension in CSV  
 - [ ] More curated pairs per category (less template fill)  
 - [ ] Optional integration with external annotator guidelines  
-- [ ] Unit tests for bias and quality functions  
 
 ## Contact
 
