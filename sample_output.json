@@ -38,6 +38,7 @@
     "bias_checked_percentage": 100,
     "cultural_sensitivity_score": 0.91
   },
+  "rubric_reference": "eval_rubric.json",
   "bias_detection_example": {
     "detected_issues": [
       "Technical elitism: Usage of 'obviously' and 'clearly' - Replaced with more inclusive language",

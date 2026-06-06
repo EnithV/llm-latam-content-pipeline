@@ -1,0 +1,46 @@
+{
+  "rubric_version": "1.0",
+  "purpose": "Quality scoring for prompt-response pairs in LATAM technical domains",
+  "dimensions": [
+    {
+      "id": "technical_density",
+      "weight": 0.25,
+      "description": "Uses domain terms, procedures, and measurable criteria",
+      "pass_indicators": ["compliance", "normativo", "análisis", "regulatory", "standard"]
+    },
+    {
+      "id": "latam_context",
+      "weight": 0.20,
+      "description": "References regional regulations, institutions, or local constraints",
+      "pass_indicators": ["colombia", "méxico", "resolución", "decreto", "anla", "latam"]
+    },
+    {
+      "id": "bias_safety",
+      "weight": 0.25,
+      "description": "No gender, regional, economic, or elitist bias patterns",
+      "severity_levels": ["high", "medium"]
+    },
+    {
+      "id": "cultural_sensitivity",
+      "weight": 0.15,
+      "description": "Inclusive language; respect for communities and local knowledge",
+      "minimum_score": 0.7
+    },
+    {
+      "id": "language_consistency",
+      "weight": 0.15,
+      "description": "Response language matches declared locale (es/en)"
+    }
+  ],
+  "decision_thresholds": {
+    "approve": 0.8,
+    "approve_with_notes": 0.65,
+    "reject_below": 0.65
+  },
+  "bias_categories": [
+    "gender_bias",
+    "regional_bias",
+    "technical_elitism",
+    "economic_bias"
+  ]
+}

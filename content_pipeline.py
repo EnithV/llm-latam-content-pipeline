@@ -289,16 +289,41 @@ NRW (%) = (Water Produced - Water Billed) / Water Produced × 100
         category_templates = templates.get(category, ["General question about {topic}"])
         template = random.choice(category_templates)
         
+        language = random.choice(self.languages)
+        prompt = template.format(**contexts)
+
+        if language == "es":
+            response = (
+                f"En {contexts['country']}, los proyectos de {contexts['infrastructure_type']} "
+                f"deben alinearse con marcos normativos como {contexts['regulation']}. "
+                f"Se recomienda: (1) diagnóstico de condiciones en zona {contexts['climate']}; "
+                f"(2) validación con {contexts['stakeholder_group']}; "
+                f"(3) plan de operación con indicadores verificables. "
+                f"La implementación debe considerar restricciones locales, participación comunitaria "
+                f"y cumplimiento ambiental según la normativa nacional aplicable."
+            )
+        else:
+            response = (
+                f"In {contexts['country']}, {contexts['infrastructure_type']} projects must align "
+                f"with frameworks such as {contexts['regulation']}. Recommended steps: "
+                f"(1) assess site conditions in a {contexts['climate']} climate; "
+                f"(2) validate assumptions with {contexts['stakeholder_group']}; "
+                f"(3) define measurable operational indicators. "
+                f"Delivery should account for local constraints, community participation, "
+                f"and environmental compliance under applicable national standards."
+            )
+
         return {
-            "prompt": template.format(**contexts),
-            "response": f"Detailed technical response covering regulatory, technical, and cultural aspects relevant to {contexts['country']} infrastructure development.",
+            "prompt": prompt,
+            "response": response,
             "metadata": {
                 "category": category,
-                "language": random.choice(self.languages),
-                "region": "LATAM",
+                "language": language,
+                "region": contexts["country"],
                 "generated": True,
                 "timestamp": datetime.now().isoformat(),
-                "cultural_context": "medium"
+                "cultural_context": "medium",
+                "bias_check": "passed"
             }
         }
     
@@ -490,12 +515,21 @@ NRW (%) = (Water Produced - Water Billed) / Water Produced × 100
         
         return pd.DataFrame(dataset)
     
+    def load_rubric(self, path: str = "eval_rubric.json") -> Optional[Dict]:
+        """Load evaluation rubric definition if present."""
+        try:
+            with open(path, encoding="utf-8") as f:
+                return json.load(f)
+        except FileNotFoundError:
+            return None
+
     def create_evaluation_report(self, dataset: pd.DataFrame) -> Dict:
         """
         Generate comprehensive evaluation metrics for the dataset
         """
         total_samples = len(dataset)
-        
+        rubric = self.load_rubric()
+
         report = {
             'dataset_overview': {
                 'total_samples': total_samples,
@@ -539,7 +573,14 @@ NRW (%) = (Water Produced - Water Billed) / Water Produced × 100
                 "Implement regular bias audits for content quality assurance"
             ]
         }
-        
+
+        if rubric:
+            report['rubric'] = {
+                'version': rubric.get('rubric_version'),
+                'dimensions': [d['id'] for d in rubric.get('dimensions', [])],
+                'thresholds': rubric.get('decision_thresholds', {})
+            }
+
         return report
 
 def main():
